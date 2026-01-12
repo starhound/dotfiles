@@ -10,28 +10,38 @@
         },
         "architect": {
             "model": "google/antigravity-gemini-3-flash",
-            "prompt": "{file:./agent/architect.md}"
+            "prompt": "{file:./agent/architect.md}",
+            "description": "High-speed planning. Uses Flash to quickly outline file structures and implementation paths."
         },
         "deep-coder": {
-            "model": "anthropic/claude-opus-4-5",
-            "prompt": "{file:./agent/deep-coder.md}"
+            "model": "anthropic/claude-sonnet-4-5",
+            "prompt": "{file:./agent/deep-coder.md}",
+            "description": "The Senior Engineer. Use for complex logic, heavy refactoring, and critical path debugging."
         },
         "fast-coder": {
-            "model": "opencode/grok-code",
-            "description": "Uses Grok for rapid boilerplate generation."
+            "model": "anthropic/claude-haiku-4-5",
+            "description": "The Junior Developer. MANDATORY for boilerplate, utility functions, and small CSS fixes. Fast and cheap."
         },
         "doc-writer": {
-            "model": "anthropic/claude-haiku-4-5",
-            "description": "Uses Haiku 4.5 for fast, cheap documentation."
+            "model": "google/antigravity-gemini-3-flash",
+            "description": "Documentation Bot. Uses Gemini Flash to rapidly ingest code and output READMEs/comments."
         },
         "librarian": {
-            "model": "opencode/glm-4.7-free",
-            "description": "Uses GLM for codebase indexing and search."
+            "model": "google/antigravity-gemini-3-flash",
+            "description": "The Indexer. Uses Gemini Flash to search the codebase and find file paths quickly."
         },
         "Sisyphus": {
-            "model": "google/antigravity-gemini-3-pro-high",
+            "model": "anthropic/claude-opus-4-5",
             "delegate_agent": true,
-            "parallel_execution": true
+            "parallel_execution": true,
+            "description": "The Project Manager. Pure coordination only. Delegates ALL work."
         }
+    },
+    "experimental": {
+        "preemptive_compaction_threshold": 0.85,
+        "truncate_all_tool_outputs": false,
+        "aggressive_truncation": false,
+        "auto_resume": true,
+        "dcp_for_compaction": true
     }
 }
