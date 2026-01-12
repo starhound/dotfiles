@@ -1,40 +1,31 @@
 {
     "agents": {
-        "orchestrator": {
-            "model": "anthropic/claude-opus-4-5",
-            "prompt": "{file:./agent/orchestrator.md}",
-            "tools": {
-                "delegate": true,
-                "parallel_execution": true
-            }
-        },
-        "architect": {
-            "model": "google/antigravity-gemini-3-flash",
-            "prompt": "{file:./agent/architect.md}",
-            "description": "High-speed planning. Uses Flash to quickly outline file structures and implementation paths."
-        },
-        "deep-coder": {
-            "model": "anthropic/claude-sonnet-4-5",
-            "prompt": "{file:./agent/deep-coder.md}",
-            "description": "The Senior Engineer. Use for complex logic, heavy refactoring, and critical path debugging."
-        },
-        "fast-coder": {
-            "model": "anthropic/claude-haiku-4-5",
-            "description": "The Junior Developer. MANDATORY for boilerplate, utility functions, and small CSS fixes. Fast and cheap."
-        },
-        "doc-writer": {
-            "model": "google/antigravity-gemini-3-flash",
-            "description": "Documentation Bot. Uses Gemini Flash to rapidly ingest code and output READMEs/comments."
-        },
-        "librarian": {
-            "model": "google/antigravity-gemini-3-flash",
-            "description": "The Indexer. Uses Gemini Flash to search the codebase and find file paths quickly."
-        },
         "Sisyphus": {
             "model": "anthropic/claude-opus-4-5",
+            "prompt_append": "{file:./agent/sisyphus.md}",
             "delegate_agent": true,
             "parallel_execution": true,
             "description": "The Project Manager. Pure coordination only. Delegates ALL work."
+        },
+        "oracle": {
+            "model": "anthropic/claude-sonnet-4-5",
+            "prompt": "{file:./agent/deep-coder.md}",
+            "description": "Deep logic specialist for complex reasoning, reviews, and high-risk changes."
+        },
+        "librarian": {
+            "model": "google/antigravity-gemini-3-flash",
+            "prompt": "{file:./agent/librarian.md}",
+            "description": "Fast context gatherer for docs, patterns, and file references."
+        },
+        "explore": {
+            "model": "anthropic/claude-haiku-4-5",
+            "prompt": "{file:./agent/explore.md}",
+            "description": "Rapid repository scout that surfaces hotspots and anomalies."
+        },
+        "document-writer": {
+            "model": "google/antigravity-gemini-3-flash",
+            "prompt": "{file:./agent/document-writer.md}",
+            "description": "Technical writer for READMEs, changelogs, and stakeholder updates."
         }
     },
     "experimental": {
