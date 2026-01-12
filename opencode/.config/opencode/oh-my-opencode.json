@@ -45,6 +45,21 @@
             "model": "google/antigravity-gemini-3-flash",
             "prompt": "{file:./agent/document-writer.md}",
             "description": "Technical writer for READMEs, changelogs, and stakeholder updates."
+        },
+        "architect": {
+            "model": "google/antigravity-gemini-3-flash",
+            "prompt": "{file:./agent/architect.md}",
+            "description": "System architect ensuring plans stay aligned."
+        },
+        "deep-coder": {
+            "model": "anthropic/claude-sonnet-4-5",
+            "prompt": "{file:./agent/deep-coder.md}",
+            "description": "Deep logic specialist for complex reasoning, reviews, and high-risk changes."
+        },
+        "fast-coder": {
+            "model": "anthropic/claude-haiku-4-5",
+            "prompt": "{file:./agent/fast-coder.md}",
+            "description": "Rapid implementation agent for boilerplate, tests, and repetitive edits."
         }
     },
     "experimental": {
