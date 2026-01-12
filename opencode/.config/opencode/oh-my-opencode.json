@@ -1,0 +1,37 @@
+{
+  "agents": {
+    "orchestrator": {
+      "model": "anthropic/claude-opus-4-5",
+      "prompt": "{file:./agent/orchestrator.md}",
+      "tools": {
+        "delegate": true,
+        "parallel_execution": true
+      }
+    },
+    "architect": {
+      "model": "google/antigravity-gemini-3-flash",
+      "prompt": "{file:./agent/architect.md}"
+    },
+    "deep-coder": {
+      "model": "anthropic/claude-opus-4-5",
+      "prompt": "{file:./agent/deep-coder.md}"
+    },
+    "fast-coder": {
+      "model": "opencode/grok-code",
+      "description": "Uses Grok for rapid boilerplate generation."
+    },
+    "doc-writer": {
+      "model": "anthropic/claude-haiku-4-5",
+      "description": "Uses Haiku 4.5 for fast, cheap documentation."
+    },
+    "librarian": {
+      "model": "opencode/glm-4.7-free",
+      "description": "Uses GLM for codebase indexing and search."
+    },
+    "Sisyphus": {
+      "model": "google/antigravity-gemini-3-pro-high",
+      "delegate_agent": true,
+      "parallel_execution": true
+    }
+  }
+}

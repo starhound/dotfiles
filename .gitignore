@@ -1,0 +1,20 @@
+# Security
+.ssh/*
+! .ssh/config
+*.pem
+*.key
+.env
+*.secrets
+
+# OS/System trash
+.DS_Store
+Thumbs.db
+
+# Stow backup files
+*.stow-bak
+.ssh/id_*
+.ssh/known_hosts
+.ssh/authorized_keys
+**/history
+**/*.log
+**/sessions/
