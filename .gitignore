@@ -1,3 +1,5 @@
+# Secrets / accounts
+**/antigravity-accounts.json
 # Security
 .ssh/*
 ! .ssh/config
@@ -18,3 +20,4 @@ Thumbs.db
 **/history
 **/*.log
 **/sessions/
+*accounts*
