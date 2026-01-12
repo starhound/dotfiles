@@ -1,4 +1,18 @@
 {
+    "disabled_agents": [
+        "build",
+        "plan"
+    ],
+    "sisyphus_agent": {
+        "default_builder_enabled": false,
+        "planner_enabled": true,
+        "replace_plan": true
+    },
+    "background_task": {
+        "modelConcurrency": {
+            "anthropic/claude-opus-4-5": 1
+        }
+    },
     "agents": {
         "Sisyphus": {
             "model": "anthropic/claude-opus-4-5",
@@ -6,6 +20,11 @@
             "delegate_agent": true,
             "parallel_execution": true,
             "description": "The Project Manager. Pure coordination only. Delegates ALL work."
+        },
+        "Sisyphus-Junior": {
+            "model": "anthropic/claude-haiku-4-5",
+            "prompt": "{file:./agent/sisyphus-junior.md}",
+            "description": "Execution lead that coordinates with the specialist crew before escalating."
         },
         "oracle": {
             "model": "anthropic/claude-sonnet-4-5",
