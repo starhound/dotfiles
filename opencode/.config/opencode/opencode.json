@@ -116,9 +116,26 @@
                 "mcp-server-fetch"
             ]
         },
+        "morph-mcp": {
+            "type": "local",
+            "command": [
+                "npx",
+                "-y",
+                "@morphllm/morphmcp"
+            ],
+            "environment": {
+                "MORPH_API_KEY": "sk-MlWFhHo28HqqF-2B0pKvJX-u4aj8wNGrGl-opR5HT8jTll_h",
+                "ENABLED_TOOLS": "edit_file,warpgrep_codebase_search"
+            }
+        }
     },
     "plugin": [
         "oh-my-opencode",
-        "opencode-antigravity-auth@1.2.8"
+        "opencode-antigravity-auth@1.2.8",
+        "opencode-openai-codex-auth@latest",
+        "@tarquinen/opencode-dcp@latest"
     ],
+    "instructions": [
+        "/home/starhound/opencode-morph-fast-apply/MORPH_INSTRUCTIONS.md"
+    ]
 }
