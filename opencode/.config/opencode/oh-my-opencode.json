@@ -1,65 +1,109 @@
 {
-    "disabled_agents": [
-        "build",
-        "plan"
-    ],
+    "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+    "disabled_agents": [],
     "sisyphus_agent": {
+        "disabled": false,
         "default_builder_enabled": false,
         "planner_enabled": true,
         "replace_plan": true
     },
     "background_task": {
         "modelConcurrency": {
-            "anthropic/claude-opus-4-5": 1
+            "anthropic/claude-opus-4-5": 1,
+            "openai/gpt-5.2-codex": 2,
+            "anthropic/claude-sonnet-4-5": 3,
+            "anthropic/claude-haiku-4-5": 5,
+            "google/gemini-2.5-flash": 4
         }
     },
     "agents": {
         "Sisyphus": {
-            "model": "openai/gpt-5.2",
-            "prompt_append": "{file:./agent/sisyphus.md}",
-            "delegate_agent": true,
-            "parallel_execution": true,
-            "description": "The Project Manager. Pure coordination only. Delegates ALL work."
+            "model": "anthropic/claude-sonnet-4-5",
+            "prompt": "{file:./agent/sisyphus.md}",
+            "description": "Primary orchestrator. Coordinates all work, delegates to specialists.",
+            "temperature": 0.3
         },
         "Sisyphus-Junior": {
             "model": "anthropic/claude-haiku-4-5",
             "prompt": "{file:./agent/sisyphus-junior.md}",
-            "description": "Execution lead that coordinates with the specialist crew before escalating."
+            "description": "Lightweight orchestrator for simple tasks.",
+            "temperature": 0.2
+        },
+        "OpenCode-Builder": {
+            "model": "anthropic/claude-sonnet-4-5",
+            "prompt_append": "You are a fast, focused implementation agent. Write clean code, match existing patterns.",
+            "description": "Fast implementation for straightforward coding tasks.",
+            "temperature": 0.2
+        },
+        "Prometheus (Planner)": {
+            "model": "openai/gpt-5.2-codex",
+            "description": "Strategic planner for complex multi-step tasks.",
+            "temperature": 0.2
+        },
+        "Metis (Plan Consultant)": {
+            "model": "anthropic/claude-sonnet-4-5",
+            "description": "Plan review and improvement specialist.",
+            "temperature": 0.3
+        },
+        "Momus (Plan Reviewer)": {
+            "model": "anthropic/claude-haiku-4-5",
+            "description": "Critical reviewer for plans.",
+            "temperature": 0.2
         },
         "oracle": {
             "model": "openai/gpt-5.2-codex",
-            "prompt": "{file:./agent/deep-coder.md}",
-            "description": "Deep logic specialist for complex reasoning, reviews, and high-risk changes."
+            "prompt": "{file:./agent/oracle.md}",
+            "description": "Deep reasoning expert. EXPENSIVE - architecture, debugging after failures.",
+            "temperature": 0.2
         },
         "librarian": {
-            "model": "google/antigravity-gemini-3-flash",
+            "model": "anthropic/claude-haiku-4-5",
             "prompt": "{file:./agent/librarian.md}",
-            "description": "Fast context gatherer for docs, patterns, and file references."
+            "description": "Fast reference lookup - docs, patterns, external examples.",
+            "temperature": 0.1
         },
         "explore": {
             "model": "anthropic/claude-haiku-4-5",
             "prompt": "{file:./agent/explore.md}",
-            "description": "Rapid repository scout that surfaces hotspots and anomalies."
+            "description": "Rapid codebase scout. Fire liberally in parallel.",
+            "temperature": 0.1
         },
-        "document-writer": {
-            "model": "anthropic/claude-sonnet-4-5",
-            "prompt": "{file:./agent/document-writer.md}",
-            "description": "Technical writer for READMEs, changelogs, and stakeholder updates."
-        },
-        "architect": {
+        "multimodal-looker": {
+            "model": "google/gemini-2.5-flash",
+            "prompt": "{file:./agent/multimodal-looker.md}",
+            "description": "Image/PDF analyzer for visual content interpretation.",
+            "temperature": 0.2
+        }
+    },
+    "categories": {
+        "reasoning": {
             "model": "openai/gpt-5.2-codex",
-            "prompt": "{file:./agent/architect.md}",
-            "description": "System architect ensuring plans stay aligned."
+            "fallback": ["anthropic/claude-opus-4-5", "google/antigravity-gemini-3-pro-high"],
+            "description": "Deep thinking for complex problems"
         },
-        "deep-coder": {
-            "model": "anthropic/claude-opus-4-5",
-            "prompt": "{file:./agent/deep-coder.md}",
-            "description": "Deep logic specialist for complex reasoning, reviews, and high-risk changes."
+        "coding": {
+            "model": "anthropic/claude-sonnet-4-5",
+            "fallback": ["openai/gpt-5.1-codex-mini", "anthropic/claude-haiku-4-5"],
+            "description": "Implementation workhorses"
         },
-        "fast-coder": {
+        "search": {
             "model": "anthropic/claude-haiku-4-5",
-            "prompt": "{file:./agent/fast-coder.md}",
-            "description": "Rapid implementation agent for boilerplate, tests, and repetitive edits."
+            "fallback": ["google/antigravity-gemini-3-flash", "opencode/grok-code"],
+            "description": "Fast cheap parallel search"
+        },
+        "vision": {
+            "model": "google/gemini-2.5-flash",
+            "fallback": ["anthropic/claude-sonnet-4-5"],
+            "description": "Multimodal image/PDF analysis"
+        },
+        "free": {
+            "model": "opencode/grok-code",
+            "fallback": [
+                "nvidia/qwen/qwen3-coder-480b-a35b-instruct",
+                "nvidia/deepseek-ai/deepseek-r1",
+                "opencode/glm-4.7-free"
+            ],
+            "description": "Free models for bulk/low-priority tasks"
         }
     },
     "experimental": {
