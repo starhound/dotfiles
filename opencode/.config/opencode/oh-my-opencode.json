@@ -10,97 +10,139 @@
     "background_task": {
         "modelConcurrency": {
             "anthropic/claude-opus-4-5": 1,
+            "anthropic/claude-sonnet-4-5": 2,
+            "anthropic/claude-haiku-4-5": 4,
+            "github-copilot/claude-sonnet-4.5": 3,
+            "github-copilot/claude-opus-4.1": 2,
+            "github-copilot/gpt-5-codex": 3,
             "openai/gpt-5.2-codex": 2,
-            "anthropic/claude-sonnet-4-5": 3,
-            "anthropic/claude-haiku-4-5": 5,
-            "google/gemini-2.5-flash": 4
+            "openai/gpt-5.2": 2,
+            "openai/gpt-5.1-codex-max": 2,
+            "openai/gpt-5.1-codex-mini": 3,
+            "google/gemini-2.5-flash": 5,
+            "google/antigravity-gemini-3-flash": 5
         }
     },
     "agents": {
         "Sisyphus": {
-            "model": "anthropic/claude-sonnet-4-5",
+            "model": "anthropic/claude-opus-4-5",
             "prompt": "{file:./agent/sisyphus.md}",
-            "description": "Primary orchestrator. Coordinates all work, delegates to specialists.",
+            "description": "Primary orchestrator via Claude Opus.",
             "temperature": 0.3
         },
         "Sisyphus-Junior": {
-            "model": "anthropic/claude-haiku-4-5",
+            "model": "google/antigravity-gemini-3-flash",
             "prompt": "{file:./agent/sisyphus-junior.md}",
-            "description": "Lightweight orchestrator for simple tasks.",
+            "description": "Lightweight orchestrator via Antigravity.",
             "temperature": 0.2
         },
         "OpenCode-Builder": {
+            "model": "github-copilot/claude-sonnet-4.5",
+            "prompt_append": "You are a fast, focused implementation agent. Write clean code, match existing patterns.",
+            "description": "Implementation via Copilot.",
+            "temperature": 0.2
+        },
+        "Claude-Builder": {
             "model": "anthropic/claude-sonnet-4-5",
             "prompt_append": "You are a fast, focused implementation agent. Write clean code, match existing patterns.",
-            "description": "Fast implementation for straightforward coding tasks.",
+            "description": "Implementation via Claude.",
+            "temperature": 0.2
+        },
+        "GPT-Builder": {
+            "model": "openai/gpt-5.2-codex",
+            "prompt_append": "You are a fast, focused implementation agent. Write clean code, match existing patterns.",
+            "description": "Implementation via OpenAI.",
             "temperature": 0.2
         },
         "Prometheus (Planner)": {
             "model": "openai/gpt-5.2-codex",
-            "description": "Strategic planner for complex multi-step tasks.",
+            "description": "Strategic planner via OpenAI $20.",
             "temperature": 0.2
         },
         "Metis (Plan Consultant)": {
-            "model": "anthropic/claude-sonnet-4-5",
-            "description": "Plan review and improvement specialist.",
+            "model": "openai/gpt-5.1-codex-mini",
+            "description": "Plan review via OpenAI mini.",
             "temperature": 0.3
         },
         "Momus (Plan Reviewer)": {
-            "model": "anthropic/claude-haiku-4-5",
-            "description": "Critical reviewer for plans.",
+            "model": "google/antigravity-gemini-3-flash",
+            "description": "Critical reviewer via Antigravity.",
             "temperature": 0.2
         },
         "oracle": {
-            "model": "openai/gpt-5.2-codex",
+            "model": "anthropic/claude-opus-4-5",
             "prompt": "{file:./agent/oracle.md}",
-            "description": "Deep reasoning expert. EXPENSIVE - architecture, debugging after failures.",
+            "description": "Deep reasoning via Claude Opus. EXPENSIVE.",
             "temperature": 0.2
         },
         "librarian": {
-            "model": "anthropic/claude-haiku-4-5",
+            "model": "google/antigravity-gemini-3-flash",
             "prompt": "{file:./agent/librarian.md}",
-            "description": "Fast reference lookup - docs, patterns, external examples.",
+            "description": "Fast reference lookup via Antigravity.",
             "temperature": 0.1
         },
         "explore": {
-            "model": "anthropic/claude-haiku-4-5",
+            "model": "google/antigravity-gemini-3-flash",
             "prompt": "{file:./agent/explore.md}",
-            "description": "Rapid codebase scout. Fire liberally in parallel.",
+            "description": "Rapid codebase scout via Antigravity.",
             "temperature": 0.1
         },
         "multimodal-looker": {
             "model": "google/gemini-2.5-flash",
             "prompt": "{file:./agent/multimodal-looker.md}",
-            "description": "Image/PDF analyzer for visual content interpretation.",
+            "description": "Image/PDF analyzer via Gemini.",
             "temperature": 0.2
         }
     },
     "categories": {
         "reasoning": {
-            "model": "openai/gpt-5.2-codex",
-            "fallback": ["anthropic/claude-opus-4-5", "google/antigravity-gemini-3-pro-high"],
-            "description": "Deep thinking for complex problems"
+            "model": "anthropic/claude-opus-4-5",
+            "fallback": [
+                "github-copilot/claude-opus-4.1",
+                "openai/gpt-5.2-codex",
+                "openai/gpt-5.1-codex-max",
+                "github-copilot/gpt-5-codex",
+                "google/antigravity-gemini-3-pro-high"
+            ],
+            "description": "Deep thinking - Claude > Copilot > OpenAI > Antigravity"
         },
         "coding": {
             "model": "anthropic/claude-sonnet-4-5",
-            "fallback": ["openai/gpt-5.1-codex-mini", "anthropic/claude-haiku-4-5"],
-            "description": "Implementation workhorses"
+            "fallback": [
+                "github-copilot/claude-sonnet-4.5",
+                "openai/gpt-5.2-codex",
+                "openai/gpt-5.1-codex-mini",
+                "github-copilot/claude-sonnet-4",
+                "github-copilot/gpt-5",
+                "google/antigravity-gemini-3-flash"
+            ],
+            "description": "Implementation - Claude > Copilot > OpenAI > Antigravity"
         },
         "search": {
-            "model": "anthropic/claude-haiku-4-5",
-            "fallback": ["google/antigravity-gemini-3-flash", "opencode/grok-code"],
-            "description": "Fast cheap parallel search"
+            "model": "google/antigravity-gemini-3-flash",
+            "fallback": [
+                "anthropic/claude-haiku-4-5",
+                "openai/gpt-5.1-codex-mini",
+                "opencode/grok-code",
+                "nvidia/qwen/qwen3-coder-480b-a35b-instruct"
+            ],
+            "description": "Fast parallel search - Antigravity > Haiku > OpenAI mini > Free"
         },
         "vision": {
             "model": "google/gemini-2.5-flash",
-            "fallback": ["anthropic/claude-sonnet-4-5"],
-            "description": "Multimodal image/PDF analysis"
+            "fallback": [
+                "github-copilot/gemini-2.5-pro",
+                "anthropic/claude-sonnet-4-5",
+                "github-copilot/claude-sonnet-4.5"
+            ],
+            "description": "Multimodal - Gemini > Claude"
         },
         "free": {
             "model": "opencode/grok-code",
             "fallback": [
                 "nvidia/qwen/qwen3-coder-480b-a35b-instruct",
                 "nvidia/deepseek-ai/deepseek-r1",
+                "nvidia/moonshotai/kimi-k2-instruct",
                 "opencode/glm-4.7-free"
             ],
             "description": "Free models for bulk/low-priority tasks"

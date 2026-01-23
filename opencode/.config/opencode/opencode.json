@@ -104,9 +104,11 @@
         "oh-my-opencode",
         "opencode-antigravity-auth@1.3.1",
         "opencode-openai-codex-auth@latest",
-        "@tarquinen/opencode-dcp@latest"
+        "@tarquinen/opencode-dcp@latest",
+        "./plugins/agent-steering"
     ],
     "instructions": [
-        "/home/starhound/opencode-morph-fast-apply/MORPH_INSTRUCTIONS.md"
+        "/home/starhound/opencode-morph-fast-apply/MORPH_INSTRUCTIONS.md",
+        "/home/starhound/dotfiles/opencode/.config/opencode/agent-steering-instructions.md"
     ]
 }
